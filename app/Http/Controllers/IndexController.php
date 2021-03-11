@@ -28,4 +28,10 @@ class IndexController extends controller{
             ->first();
         return view('iframe', $data);
     }
+
+    public function getDashboard()
+    {
+        return view('index');
+    }
+
 }
