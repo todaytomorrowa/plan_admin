@@ -31,21 +31,6 @@ class CreateTableLog extends Migration
         DB::table('admin_role_permissions')->insert([
             [
                 'parent_id' => $id,
-                'rule' => 'behaviorlog/index',
-                'name' => '异常行为监控',
-            ],
-            [
-                'parent_id' => $id,
-                'rule' => 'behaviorlog/detail',
-                'name' => '查看异常行为详情',
-            ],
-            [
-                'parent_id' => $id,
-                'rule' => 'loginlog/index',
-                'name' => '登录日志查询',
-            ],
-            [
-                'parent_id' => $id,
                 'rule' => 'syslog/index',
                 'name' => '系统日志',
             ],

@@ -24,12 +24,6 @@
                     <div class="box-body">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="username" class="col-sm-3 col-sm-3 control-label">用户名</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name='username' placeholder="用户名" />
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="start_date" class="col-sm-3 control-label">时间</label>
                                 <div class="col-sm-9">
                                     <div class="input-daterange input-group">
@@ -78,7 +72,6 @@
                 <table id="tags-table" class="table table-bordered table-hover app_w100pct">
                     <thead>
                     <tr>
-                        <th data-sortable="false">用户名</th>
                         <th data-sortable="false">用户组</th>
                         <th data-sortable="false">行为</th>
                         <th data-sortable="false">严重程度</th>
@@ -120,7 +113,6 @@
     $(function () {
         var get_params = function (data) {
             var param = {
-                'username': $("input[name='username']").val(),
                 'start_date': $("input[name='start_date']").val(),
                 'end_date': $("input[name='end_date']").val(),
                 'action': $("input[name='action']").val(),
@@ -139,7 +131,6 @@
             // 要 ajax(url, type) 必须加这两参数
             ajax: app.DataTable.ajax(null, null, get_params),
             "columns": [
-                {"data": "username"},
                 {"data": "user_group_name"},
                 {"data": "action"},
                 {"data": "level"},
@@ -150,16 +141,6 @@
             columnDefs: [
                 {
                     'targets': 0,
-                    'render': function (data, type, row) {
-                        if (row['user_observe']) {
-                            return app.getColorHtml(row.username, 'label-danger', false);
-                        } else {
-                            return row.username;
-                        }
-                    }
-                },
-                {
-                    'targets': 1,
                     'render': function (data, type, row) {
                         var label = 'label-success';
 
@@ -173,7 +154,7 @@
                     }
                 },
                 {
-                    'targets': 3, "render": function (data, type, row) {
+                    'targets': 2, "render": function (data, type, row) {
                         if (data == 0) {
                             return app.getLabelHtml('一般', 'label-warning');
                         } else {

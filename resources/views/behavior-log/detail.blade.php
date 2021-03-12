@@ -16,12 +16,6 @@
                         <div class="panel-body">
                             <table class="table table-striped table-bordered table-hover">
                                 <tr>
-                                    <td>用户名</td>
-                                    <td>
-                                        {{$username}}
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>行为</td>
                                     <td>{{$action}}</td>
                                 </tr>
