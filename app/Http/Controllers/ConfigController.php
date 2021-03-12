@@ -89,8 +89,8 @@ class ConfigController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCreate(Request $request)
     {
@@ -106,10 +106,8 @@ class ConfigController extends Controller
     }
 
     /**
-     * 新建后台配置项.
-     *
-     * @param ConfigCreateRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * @param ConfigCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postCreate(ConfigCreateRequest $request)
     {
@@ -139,10 +137,8 @@ class ConfigController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getEdit(Request $request)
     {
@@ -180,6 +176,10 @@ class ConfigController extends Controller
 
         $value = $config->value;
         $config->value = is_array($value) ? implode(',', $value) : $value;
+
+        if (empty($config->value)) {
+            unset($config->value);
+        }
 
         $check_data = $this->_checkData($config->input_type, $config->value_type, $config->value, $config->input_option);
 
@@ -235,9 +235,8 @@ class ConfigController extends Controller
 
     /**
      * 删除后台配置项
-     *
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteIndex(Request $request)
     {
@@ -305,10 +304,6 @@ class ConfigController extends Controller
         $check_data = $this->_checkData($config->input_type, $config->value_type, $config->value, $config->input_option);
         if ($check_data !== true) {
             return redirect()->back()->withErrors($check_data['msg']);
-            return response()->json([
-                'status' => 1,
-                'msg' => $check_data['msg']
-            ]);
         }
 
         try {

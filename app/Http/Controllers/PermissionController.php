@@ -71,7 +71,7 @@ class PermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCreate(Request $request)
     {
@@ -86,16 +86,18 @@ class PermissionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param PremissionCreateRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created resource in storage
+     * @param PermissionCreateRequest $request
+     * @return mixed
      */
     public function postCreate(PermissionCreateRequest $request)
     {
         $permission = new AdminRolePermission();
         foreach (array_keys($this->fields) as $field) {
             $permission->$field = $request->get($field, $this->fields[$field]);
+            if (empty($permission->$field)) {
+                unset($permission->$field);
+            }
         }
 
         $permission->save();
@@ -104,10 +106,8 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getEdit(Request $request)
     {
@@ -137,6 +137,9 @@ class PermissionController extends Controller
         $permission = AdminRolePermission::find((int)$id);
         foreach (array_keys($this->fields) as $field) {
             $permission->$field = $request->get($field, $this->fields[$field]);
+            if (empty($permission->$field)) {
+                unset($permission->$field);
+            }
         }
         $permission->save();
         return redirect('/permission\/?parent_id=' . $permission->parent_id)->withSuccess('修改成功');
@@ -144,9 +147,8 @@ class PermissionController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteIndex(Request $request)
     {
