@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function getIndex()
     {
         $data = array();
-        $data['role_list'] = \Service\Models\Admin\AdminRole::all(['id', 'name']);
+        $data['role_list'] = AdminRole::all(['id', 'name']);
         return view('admin.index', $data);
     }
 
@@ -135,10 +135,8 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getEdit(Request $request)
     {
@@ -160,9 +158,8 @@ class AdminController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
      * @param AdminUpdateRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putEdit(AdminUpdateRequest $request)
     {
@@ -223,6 +220,10 @@ class AdminController extends Controller
         return redirect('/admin\/')->withSuccess("管理员【" . $user->username . '】解绑登录器成功！');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function putLock(Request $request)
     {
         $id = (int)$request->get('id', 0);

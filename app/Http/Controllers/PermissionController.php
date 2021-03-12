@@ -63,6 +63,7 @@ class PermissionController extends Controller
                     ->skip($start)->take($length)
                     ->get();
             }
+
             return response()->json($data);
         }
     }

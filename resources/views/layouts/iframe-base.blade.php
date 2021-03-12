@@ -17,7 +17,7 @@
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-       
+
         <!-- Content Header (Page header) -->
         <section class="content-header navTopBar">
         {{--<h1>--}}
@@ -29,7 +29,7 @@
         {{--<li class="active">@yield('here')</li>--}}
         {{--</ol>--}}
         <!--<h6>
-              {{--  @if(Request::is('log-viewer*'))
+              {{--  @if(Requests::is('log-viewer*'))
                     仪表盘
                 @else
                     {!! Breadcrumbs::render(Route::currentRouteName()) !!}

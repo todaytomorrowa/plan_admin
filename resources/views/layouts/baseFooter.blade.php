@@ -93,15 +93,6 @@
                 tabsClickToFocus('',$(this));
             });
 
-            @if(Gate::check('project/alert'))
-            getProjectAlert();
-            @endif
-            $('body').everyTime('10s',function(){
-                @if(Gate::check('project/alert'))
-                getProjectAlert();
-                @endif
-
-            });
             setInterval('autoScroll()', 2000);
 
 //                if( $.cookie('sidebar-toggle')=='true'){
@@ -181,64 +172,6 @@
             $("#app_body div").removeClass('app-show');
             obj.addClass('active');
             $("#app_body div").eq(index).addClass("app-show");
-        }
-
-        function getProjectAlert() {
-            $.ajax({
-                type: "PUT",
-                url: "/project/alert",
-                dataType:'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            }).done(function( data ) {
-                if(data.total>0){
-                    $('#project_alert_num').html(data.total).show();
-                    var toast_content = '';
-                    var html=' <li>\n' +
-                        '                        <ul class="menu">\n';
-                    $.each(data.list,function(i){
-                        //console.log(data.list[i].id,data.list[i].toast,data.list[i].msg);
-                        if(data.list[i].toast == 1){
-                            toast_content += data.list[i].msg + '<br>';
-                        }
-                        html +=
-                            '                            <li>\n' +
-                            '                                <a>\n' +
-                            '                                    <i class="fa fa-bell text-info"></i>' +data.list[i].msg+'<button title="已查看" type="button" class="close">\n' +
-                            '                                ×\n' +
-                            '                            </button>'+
-                            '                                </a>\n' +
-                            '                            </li>\n';
-
-                    });
-                    html +=  '</ul>\n' +
-                        '</li>'+
-                        '<li class="footer"><a mountTabs title="提示" href="/project/alert">查看</a></li>';
-                    $("#project_alert_menu").html(html);
-                    if(toast_content.length > 0){
-                        toast_content += '<a mountTabs title="提示" href="/project/alert">点击查看</a>';
-                        bootoast({
-                            message: toast_content,
-                            type: 'warning',
-                            position: 'top-right',
-                            timeout: 5,
-                            animationDuration: 300,
-                            dismissable: true
-                        });
-                    }
-                } else {
-                    $('#project_alert_num').html(data.total).hide();
-                    var html=' <li>\n' +
-                        '                        <ul class="menu">\n';
-                    html +=  '</ul>\n' +
-                        '</li>'+
-                        '<li class="footer"><a mountTabs title="提示" href="/project/alert">查看</a></li>';
-                    $("#project_alert_menu").html(html);
-                }
-            }).fail(function(){
-                $('body').stopTime();
-            });
         }
 
         //文字滚动效果

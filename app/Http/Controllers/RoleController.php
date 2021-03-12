@@ -53,7 +53,7 @@ class RoleController extends Controller
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             }
-
+            file_put_contents('D:\w\test.php', print_r($data,true),8);
             return response()->json($data);
         }
         if ($request->get('export')) {
