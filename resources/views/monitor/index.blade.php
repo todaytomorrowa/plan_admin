@@ -33,10 +33,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="btn-group col-md-6">
-                                    <button type="submit" class="btn btn-primary col-sm-2 pull-right" id="search_btn">查询</button>
+                                    <button type="submit" class="btn btn-primary col-sm-3 pull-right" id="search_btn">查询</button>
                                 </div>
-                                <div class=" btn-group col-md-6">
-                                    <button type="reset" class="btn btn-default col-sm-2">重置</button>
+                                <div class="btn-group col-md-6">
+                                    <button type="reset" class="btn btn-default col-sm-3">重置</button>
                                 </div>
                             </div>
                         </div>
